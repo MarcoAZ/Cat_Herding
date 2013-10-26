@@ -1,2 +1,12 @@
 I made this game following this tutorial: http://www.lostdecadegames.com/how-to-make-a-simple-html5-canvas-game/
 I've made some tweaks and plan to use this game to learn to code new features.
+
+*************
+10/26/2013
++added a timer :) took a while to figure out to be honest. Any advice to tidy it up would be appreciated.
+
+Still want to add:
+-pop that displays you score after time runs out. 
+-bigger player sprite
+-cats actively avoid player
+-running animations

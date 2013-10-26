@@ -73,26 +73,10 @@ addEventListener("keyup", function (e){
 	delete keysDown[e.keyCode];
 }, false);
 
-//game is reset when the player catches a cat
-var reset = function(){
-	//player is center on the canvas, commented out so character stays in same spot
-//	player.x = canvas.width/2;
-//	player.y = canvas.height/2;
-
-	//cat is thrown somewhere on the screen randomly
-//	cat.x = 32 + (Math.random() * (canvas.width - 64));
-	//starts 32 px from the left and 32 px from the right, making room for picture size?
-//	cat.y = 32 + (Math.random() *(canvas.height - 64));
-
-//	cat2.x = 32 + (Math.random() * (canvas.width - 64));
-	//copy pasted
-//	cat2.y = 32 + (Math.random() *(canvas.height - 64));
-};
-
-//getting the cats to move
 function animate(){
 	cat.x += (cat.vx / cat.speed);
 	cat.y += (cat.vy / cat.speed);
+	
 	//bounce off walls
 	if (cat.x + 32 > canvas.width || cat.x < 0) {
 		cat.vx *= -1;
@@ -129,7 +113,6 @@ function animate(){
 
 //update game objects
 var update = function(modifier){
-	animate();
 	if(38 in keysDown){ //38 = up button
 		player.y -= player.speed * modifier;
 		//but what if the player goes off screen?
@@ -166,7 +149,6 @@ var update = function(modifier){
 			cat.x = 32 + (Math.random() * (canvas.width - 64));
 			cat.y = 32 + (Math.random() *(canvas.height - 64));
 			++catsCaught;
-			reset();
 		}
 	else if	(
 		player.x <= (cat2.x + 32)
@@ -177,7 +159,6 @@ var update = function(modifier){
 			cat2.x = 32 + (Math.random() * (canvas.width - 64));
 			cat2.y = 32 + (Math.random() *(canvas.height - 64));
 			++catsCaught;
-			reset();
 		}
 };
 
@@ -206,6 +187,21 @@ var render = function(){
 	ctx.fillText("Cats captured: " + catsCaught, 140, 400);
 };
 
+//end the game
+var time = 0;
+var end = function(mod){
+	time += mod;
+	var timeLeft =(10 - time).toFixed(1);
+	ctx.fillStyle = "rgb(3, 86, 105)";
+	ctx.font = "24px Helvetica";
+	ctx.textAlign = "left";
+	ctx.textBaseline = "top";
+	ctx.fillText("Time left: " + timeLeft, 140, 440);
+	if (timeLeft <= 0) {
+		clearInterval(interval);
+	};
+};
+
 //the main game loop
 var main = function(){
 	var now = Date.now();
@@ -213,11 +209,12 @@ var main = function(){
 
 	update(delta/1000);
 	render();
-
+	end(delta/1000);
+	animate();
 	then = now;
 };
 
 //playing the game
-reset();
 var then = Date.now();
-setInterval(main, 1); //executes as fast a possible
+var interval = setInterval(main, 1); //executes as fast a possible
+
