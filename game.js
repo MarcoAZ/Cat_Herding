@@ -98,14 +98,14 @@ function animate(){
 	if (player.x <= (cat.x + 33)
 		&& cat.x <= (player.x +33)
 		&& player.y <= (cat.y + 33)
-		&& cat.y <= (player.y + 33)) {
+		&& cat.y <= (player.y + 64)) {
 			cat.vy = (cat.vy * (-1));
 			cat.vx = (cat.vx * (-1));
 	};
 	if (player.x <= (cat2.x + 33)
 		&& cat2.x <= (player.x +33)
 		&& player.y <= (cat2.y + 33)
-		&& cat2.y <= (player.y + 33)) {
+		&& cat2.y <= (player.y + 64)) {
 			cat2.vy *= -1;
 			cat2.vx *= -1;
 	};	
@@ -122,8 +122,8 @@ var update = function(modifier){
 	}
 	if(40 in keysDown){//down
 		player.y += player.speed * modifier;
-		if (player.y > 448) {
-			player.y =448;
+		if (player.y > 416) {
+			player.y =416;
 		};
 	}
 	if (37 in keysDown) {//left
@@ -144,7 +144,7 @@ var update = function(modifier){
 		player.x <= (cat.x + 32)
 		&& cat.x <= (player.x +32)
 		&& player.y <= (cat.y + 32)
-		&& cat.y <= (player.y + 32)
+		&& cat.y <= (player.y + 63)
 		) {//only this cat's position is randomized if caught
 			cat.x = 32 + (Math.random() * (canvas.width - 64));
 			cat.y = 32 + (Math.random() *(canvas.height - 64));
@@ -154,7 +154,7 @@ var update = function(modifier){
 		player.x <= (cat2.x + 32)
 		&& cat2.x <= (player.x +32)
 		&& player.y <= (cat2.y + 32)
-		&& cat2.y <= (player.y + 32)
+		&& cat2.y <= (player.y + 63)
 		) {
 			cat2.x = 32 + (Math.random() * (canvas.width - 64));
 			cat2.y = 32 + (Math.random() *(canvas.height - 64));
@@ -180,11 +180,8 @@ var render = function(){
 	}
 
 	//score
-	ctx.fillStyle = "rgb(3, 86, 105)";
-	ctx.font = "24px Helvetica";
-	ctx.textAlign = "left";
-	ctx.textBaseline = "top";
-	ctx.fillText("Cats captured: " + catsCaught, 140, 400);
+	var score = document.getElementById("caughtBox");
+	score.innerHTML="Cats captured: " + catsCaught;
 };
 
 //end the game
@@ -192,11 +189,8 @@ var time = 0;
 var end = function(mod){
 	time += mod;
 	var timeLeft =(10 - time).toFixed(1);
-	ctx.fillStyle = "rgb(3, 86, 105)";
-	ctx.font = "24px Helvetica";
-	ctx.textAlign = "left";
-	ctx.textBaseline = "top";
-	ctx.fillText("Time left: " + timeLeft, 140, 440);
+	var tBox = document.getElementById('timeBox');//get reference to <p>
+	tBox.innerHTML ="Time left: " + (10 - time).toFixed(1);//insert this into <p>
 	if (timeLeft <= 0) {
 		clearInterval(interval);
 	};

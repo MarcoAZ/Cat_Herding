@@ -1,5 +1,14 @@
 I made this game following this tutorial: http://www.lostdecadegames.com/how-to-make-a-simple-html5-canvas-game/
 I've made some tweaks and plan to use this game to learn to code new features.
+*************
+10/29/2013
++made player twice as big
++moved timer and counter off canvas
+
+still to add:
+-pop up when time runs out
+-animations when moving
+-cats wander instead of bouncing off walls
 
 *************
 10/26/2013

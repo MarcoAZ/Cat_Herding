@@ -1,0 +1,21 @@
+body{
+	text-align: center;
+	width: 512px;
+}
+p.time {
+
+	text-align: center;
+	width: 200px;
+	border: 2px solid #000000;
+	padding: 15px;
+	float: left;
+
+}
+
+p.caught {
+	text-align: center;
+	width: 200px;
+	border: 2px solid #000000;
+	padding: 15px;
+	float: right;
+}
