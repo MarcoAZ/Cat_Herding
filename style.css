@@ -1,7 +1,19 @@
 body{
 	text-align: center;
+	margin: 0 auto;
 	width: 512px;
 }
+
+canvas {
+	text-align: center;
+}
+
+div {
+	border: 2px solid #000000;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
 p.time {
 
 	text-align: center;

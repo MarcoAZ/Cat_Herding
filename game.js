@@ -1,9 +1,9 @@
 //creating the canvas
-var canvas = document.createElement("canvas");
-var ctx = canvas.getContext("2d");
+var canvas = document.getElementById("canvas");
 canvas.width = 512;
 canvas.height = 480;
-document.body.appendChild(canvas);
+var ctx = canvas.getContext("2d");
+
 
 //background image
 var bgReady = false;
@@ -72,6 +72,40 @@ addEventListener("keydown", function (e) {
 addEventListener("keyup", function (e){
 	delete keysDown[e.keyCode];
 }, false);
+
+function sprite(){
+	if(38 in keysDown){
+		ctx.drawImage(
+			playerImage, 
+			32, 0, 32, 64,
+			player.x, player.y, 32, 64);
+		}
+	else if(40 in keysDown){//down
+		ctx.drawImage(
+			playerImage, 
+			0, 0, 32, 64,
+			player.x, player.y, 32, 64);
+	}
+	else if (37 in keysDown) {//left
+		ctx.drawImage(
+			playerImage, 
+			64, 0, 32, 64,
+			player.x, player.y, 32, 64);
+	}
+	else if (39 in keysDown) {//right
+		ctx.drawImage(
+			playerImage, 
+			96, 0, 32, 64,
+			player.x, player.y, 32, 64);
+	}
+	else {
+		ctx.drawImage(
+		playerImage, 
+		0, 0, 32, 64,
+		player.x, player.y, 32, 64);
+	}
+};
+
 
 function animate(){
 	cat.x += (cat.vx / cat.speed);
@@ -165,11 +199,12 @@ var update = function(modifier){
 //draws everything
 var render = function(){
 	if (bgReady) {
-		ctx.drawImage(bgImage, 0, 0);
+		ctx.drawImage(bgImage, 0, 0, 512, 480);
 	}
 
 	if (playerReady) {
-		ctx.drawImage(playerImage, player.x, player.y);
+
+		sprite();
 	}
 
 	if (catReady) {
@@ -184,15 +219,35 @@ var render = function(){
 	score.innerHTML="Cats captured: " + catsCaught;
 };
 
+
+//pop up message
+var popUp = function () {
+	ctx.fillStyle = "white";
+	ctx.strokeStyle = "black"; 
+	ctx.fillRect(90, 140, 310, 100);
+	ctx.beginPath();
+	ctx.moveTo(90, 140);
+	ctx.lineTo(400,140);
+	ctx.lineTo(400, 240);
+	ctx.lineTo(90, 240);
+	ctx.lineTo(90, 140);
+	ctx.lineWidth = 5;
+	ctx.stroke();
+	ctx.fillStyle = "black";
+	ctx.font = "bold " + 40 + "pt Courier ";
+	ctx.fillText("GAME OVER", 100, 200);
+};
+
 //end the game
 var time = 0;
 var end = function(mod){
 	time += mod;
 	var timeLeft =(10 - time).toFixed(1);
 	var tBox = document.getElementById('timeBox');//get reference to <p>
-	tBox.innerHTML ="Time left: " + (10 - time).toFixed(1);//insert this into <p>
+	tBox.innerHTML ="Time left: " + timeLeft;//insert this into <p>
 	if (timeLeft <= 0) {
 		clearInterval(interval);
+		popUp();
 	};
 };
 
@@ -203,6 +258,7 @@ var main = function(){
 
 	update(delta/1000);
 	render();
+	sprite();
 	end(delta/1000);
 	animate();
 	then = now;
@@ -211,4 +267,3 @@ var main = function(){
 //playing the game
 var then = Date.now();
 var interval = setInterval(main, 1); //executes as fast a possible
-

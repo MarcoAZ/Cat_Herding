@@ -1,6 +1,16 @@
 I made this game following this tutorial: http://www.lostdecadegames.com/how-to-make-a-simple-html5-canvas-game/
 I've made some tweaks and plan to use this game to learn to code new features.
 *************
+10/30/2013
++added my first sprite for a player
++added game over pop up (looks plain for now)
+
+still looking to add:
+-sprites for cats!
+-better cat AI. Less pong animation, more wandering.
+
+
+*************
 10/29/2013
 +made player twice as big
 +moved timer and counter off canvas
